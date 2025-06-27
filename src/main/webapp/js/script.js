@@ -61,7 +61,6 @@ function editAccount(id, row) {
 
     if (isEditing) {
         saveAccount(id, cells);
-        // Показать иконку удаления после завершения редактирования
         row.find('.delete-icon').show();
     } else {
         cells.each(function(index) {
@@ -72,13 +71,13 @@ function editAccount(id, row) {
                     select.append(`<option value="${race}" ${race === cell.text() ? 'selected' : ''}>${race}</option>`);
                 });
                 cell.html(select);
-            } else if (index === 4) { // Profession
+            } else if (index === 4) {
                 const select = $('<select></select>');
                 professions.forEach(profession => {
                     select.append(`<option value="${profession}" ${profession === cell.text() ? 'selected' : ''}>${profession}</option>`);
                 });
                 cell.html(select);
-            } else if ((index > 0 && index < 5) || index === 7) { // Индексы для редактирования
+            } else if ((index > 0 && index < 5) || index === 7) {
                 if (index === 7) { // Чекбокс
                     const checkbox = $('<input type="checkbox">').prop('checked', cell.find('input').prop('checked'));
                     cell.html(checkbox);
@@ -90,7 +89,6 @@ function editAccount(id, row) {
         });
         row.addClass('editing');
         row.find('.edit-icon').attr('src', '/img/save.png');
-        // Скрыть иконку удаления во время редактирования
         row.find('.delete-icon').hide();
     }
 }
@@ -99,8 +97,8 @@ function saveAccount(id, cells) {
     const updatedAccount = {
         name: cells[1].querySelector('input').value,
         title: cells[2].querySelector('input').value,
-        race: cells[3].querySelector('select').value, // Получаем значение из select
-        profession: cells[4].querySelector('select').value, // Получаем значение из select
+        race: cells[3].querySelector('select').value,
+        profession: cells[4].querySelector('select').value,
         banned: cells[7].querySelector('input').checked
     };
 
@@ -123,7 +121,7 @@ function loadAccounts(pageNumber, pageSize) {
         const tbody = $('#myTable tbody');
         tbody.empty();
         data.forEach(account => {
-            const birthday = new Date(account.birthday).toLocaleDateString('ru-RU'); // Преобразование даты
+            const birthday = new Date(account.birthday).toLocaleDateString('ru-RU');
             tbody.append(`<tr>
                 <td>${account.id}</td>
                 <td>${account.name}</td>
@@ -131,7 +129,7 @@ function loadAccounts(pageNumber, pageSize) {
                 <td>${account.race}</td>
                 <td>${account.profession}</td>
                 <td>${account.level}</td>
-                <td>${birthday}</td> <!-- Отображение преобразованной даты -->
+                <td>${birthday}</td>
                 <td><input type="checkbox" ${account.banned ? 'checked' : ''} disabled></td>
                 <td>
                     <img src="/img/edit.png" alt="Edit" class="edit-icon" data-id="${account.id}" />
@@ -194,7 +192,6 @@ $(document).ready(function() {
         }
     });
 
-    // Загрузка рас и профессий в выпадающие списки
     function loadRacesAndProfessions() {
         races.forEach(race => {
             $('#race').append(`<option value="${race}">${race}</option>`);
