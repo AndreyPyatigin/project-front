@@ -1,6 +1,6 @@
 let totalAccounts = 0;
 let currentPage = 1;
-let itemsPerPage = 5; // Default value
+let itemsPerPage = 5;
 
 const races = [
     'HUMAN',
@@ -27,7 +27,7 @@ function fetchTotalAccounts() {
         totalAccounts = data;
         updatePagination();
     }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Ошибка при получении общего количества аккаунтов:", textStatus, errorThrown);
+        console.error("Error fetching total accounts:", textStatus, errorThrown);
     });
 }
 
@@ -78,7 +78,7 @@ function editAccount(id, row) {
                 });
                 cell.html(select);
             } else if ((index > 0 && index < 5) || index === 7) {
-                if (index === 7) { // Чекбокс
+                if (index === 7) { // Checkbox
                     const checkbox = $('<input type="checkbox">').prop('checked', cell.find('input').prop('checked'));
                     cell.html(checkbox);
                 } else {
@@ -111,7 +111,7 @@ function saveAccount(id, cells) {
             loadAccounts(currentPage, itemsPerPage);
         },
         error: function(xhr, status, error) {
-            alert("Не удалось обновить аккаунт. Попробуйте позже.");
+            alert("Failed to update the account. Please try again later.");
         }
     });
 }
@@ -121,7 +121,7 @@ function loadAccounts(pageNumber, pageSize) {
         const tbody = $('#myTable tbody');
         tbody.empty();
         data.forEach(account => {
-            const birthday = new Date(account.birthday).toLocaleDateString('ru-RU');
+            const birthday = new Date(account.birthday).toLocaleDateString('en-US');
             tbody.append(`<tr>
                 <td>${account.id}</td>
                 <td>${account.name}</td>
@@ -151,7 +151,7 @@ function loadAccounts(pageNumber, pageSize) {
             deleteAccount(id);
         });
     }).fail(function() {
-        console.error("Ошибка при загрузке аккаунтов");
+        console.error("Error loading accounts");
     });
 }
 
@@ -201,9 +201,7 @@ $(document).ready(function() {
         });
     }
 
-
     loadRacesAndProfessions();
-
 
     $('#createAccountButton').click(function() {
         const newAccount = {
@@ -222,14 +220,12 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(newAccount),
             success: function(result) {
-
                 $('#createAccountForm input').val('');
                 $('#createAccountForm select').prop('selectedIndex', 0);
-
                 loadAccounts(currentPage, itemsPerPage);
             },
             error: function(xhr, status, error) {
-                alert("Не удалось создать аккаунт. Попробуйте позже.");
+                alert("Failed to create account. Please try again later.");
             }
         });
     });
