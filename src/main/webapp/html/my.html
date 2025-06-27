@@ -1,11 +1,77 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>RPG</title>
-    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="/css/my.css" rel="stylesheet">
+    <script src="/js/script.js"></script>
 </head>
 <body>
 <h1>RPG admin panel</h1>
+<table id="myTable">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Race</th>
+        <th>Profession</th>
+        <th>Level</th>
+        <th>Birthday</th>
+        <th>Banned</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
 
+
+
+    </tbody>
+</table>
+<div id="pagination">
+    <select id="itemsPerPage">
+        <option value="3">3</option>
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select>
+    <button id="prevPage">Previous</button>
+    <span id="currentPage">1</span>
+    <button id="nextPage">Next</button>
+    <div id="pageNumbers"></div>
+</div>
+<hr>
+<p>You can create a new account here:</p>
+<div id="createAccountForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" maxlength="12" required>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" maxlength="30" required>
+
+    <label for="race">Race:</label>
+    <select id="race" required>
+        <option value="">Select Race</option>
+    </select>
+
+    <label for="profession">Profession:</label>
+    <select id="profession" required>
+        <option value="">Select Profession</option>
+    </select>
+
+    <label for="level">Level:</label>
+    <input type="number" id="level" min="0" max="100" required>
+
+    <label for="birthday">Birthday:</label>
+    <input type="date" id="birthday" required>
+
+    <label for="banned">Banned:</label>
+    <input type="checkbox" id="banned">
+
+    <button id="createAccountButton">Create Account</button>
+</div>
 </body>
 </html>
